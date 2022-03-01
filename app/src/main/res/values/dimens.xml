@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="spacing_small">@dimen/_5sdp</dimen>
+    <dimen name="spacing_medium">@dimen/_10sdp</dimen>
+    <dimen name="spacing_long">@dimen/_25sdp</dimen>
+
+    <dimen name="corner_radius_small">@dimen/_3sdp</dimen>
+    <dimen name="corner_radius_medium">@dimen/_8sdp</dimen>
+    <dimen name="corner_radius_long">@dimen/_10sdp</dimen>
+</resources>
