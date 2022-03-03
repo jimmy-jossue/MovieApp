@@ -24,6 +24,7 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     private val args: MovieDetailFragmentArgs by navArgs()
     private val viewModel: MovieDetailViewModel by viewModels()
     private val locale = Locale.getDefault()
+    private var firstOpening = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,7 +65,14 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
             if (isLoading) showLoading()
         }
         viewModel.videos.observe(viewLifecycleOwner) { videos ->
-            if (!videos.isNullOrEmpty()) setUpVideos(videos) else setUpMessage(false)
+            if (!videos.isNullOrEmpty()) {
+                setUpVideos(videos)
+            } else {
+                if (!firstOpening) {
+                    setUpMessage(false)
+                }
+                firstOpening = false
+            }
         }
         viewModel.error.observe(viewLifecycleOwner) { isError ->
             if (isError) setUpMessage(isError)

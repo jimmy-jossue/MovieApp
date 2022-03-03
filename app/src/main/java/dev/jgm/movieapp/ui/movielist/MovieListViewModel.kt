@@ -9,7 +9,6 @@ import dev.jgm.movieapp.domain.model.Movie
 import dev.jgm.movieapp.domain.model.MovieType
 import dev.jgm.movieapp.domain.usecases.GetAllMovies
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,10 +19,6 @@ class MovieListViewModel @Inject constructor(
     val movies = MutableLiveData<List<Movie>>(emptyList())
     val isLoading = MutableLiveData(true)
     val error = MutableLiveData(false)
-
-    init {
-        loadMovies(MovieType.POPULAR, Locale.getDefault().language, 1)
-    }
 
     fun loadMovies(movieType: MovieType, language: String, page: Int) {
         viewModelScope.launch {

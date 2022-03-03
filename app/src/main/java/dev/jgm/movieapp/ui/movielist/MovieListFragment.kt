@@ -14,12 +14,13 @@ import dev.jgm.movieapp.domain.model.MovieType
 import java.util.*
 
 @AndroidEntryPoint
-class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
+class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
 
     private lateinit var binding: FragmentMovieListBinding
     private val viewModel: MovieListViewModel by viewModels()
     private lateinit var adapter: MovieListAdapter
     private val language = Locale.getDefault().language
+    private var firstOpening = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,11 +28,12 @@ class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
         setUpRecycler()
         setUpFilter()
         initObservers()
+        loadMovies()
     }
 
     private fun setUpFilter() {
-        binding.rbMostPopular.setOnClickListener { loadMovies(MovieType.POPULAR) }
-        binding.rbPlayingNow.setOnClickListener { loadMovies(MovieType.PLAYING_NOW) }
+        binding.rbMostPopular.setOnClickListener { loadMovies() }
+        binding.rbPlayingNow.setOnClickListener { loadMovies() }
     }
 
     private fun setUpRecycler() {
@@ -50,22 +52,26 @@ class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
                 adapter.list = movies
                 binding.rbPlayingNow.isEnabled = true
                 binding.rbMostPopular.isEnabled = true
-                binding.rvMovieList.visibility = View.VISIBLE
                 binding.loading.root.visibility = View.GONE
                 binding.message.root.visibility = View.GONE
+                binding.rvMovieList.visibility = View.VISIBLE
             } else {
-                setUpMessage(true)
+                if (!firstOpening) {
+                    setUpMessage()
+                }
+                firstOpening = false
             }
         }
         viewModel.error.observe(viewLifecycleOwner) { isError ->
             if (isError) {
-                setUpMessage(isError)
+                setUpMessage()
             }
         }
     }
 
-    private fun loadMovies(movieType: MovieType) {
-        viewModel.loadMovies(movieType, language, 1)
+    private fun loadMovies() {
+        val type = if (binding.rbMostPopular.isChecked) MovieType.POPULAR else MovieType.PLAYING_NOW
+        viewModel.loadMovies(type, language, 1)
     }
 
     private fun openDetailsMovie(movie: Movie) {
@@ -73,19 +79,16 @@ class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
         findNavController().navigate(direction)
     }
 
-    private fun setUpMessage(isError: Boolean) {
+    private fun setUpMessage() {
         binding.message.title.text = getString(R.string.no_movie_found)
         binding.message.image.setImageResource(R.drawable.ic_no_movie_found)
         binding.message.button.text = getString(R.string.try_again)
-        binding.message.button.visibility = View.GONE
-        if (isError) {
-            binding.message.body.text = getString(R.string.make_sure_have_Internet_connection)
-            binding.message.body.visibility = View.VISIBLE
-        } else {
-            binding.message.body.visibility = View.GONE
-
+        binding.message.button.visibility = View.VISIBLE
+        binding.message.button.setOnClickListener {
+            loadMovies()
         }
-
+        binding.message.body.text = getString(R.string.make_sure_have_Internet_connection)
+        binding.message.body.visibility = View.VISIBLE
         binding.rbPlayingNow.isEnabled = true
         binding.rbMostPopular.isEnabled = true
         binding.loading.root.visibility = View.GONE
@@ -96,7 +99,6 @@ class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
     private fun showLoading() {
         binding.rbPlayingNow.isEnabled = false
         binding.rbMostPopular.isEnabled = false
-        binding.rvMovieList.visibility = View.GONE
         binding.message.root.visibility = View.GONE
         binding.loading.root.visibility = View.VISIBLE
     }
