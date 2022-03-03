@@ -91,4 +91,4 @@ Cada viewModel tiene una referencia a el caso de uso que se necesita para optene
 <br/>
 
 
- **NOTA** lamentablemente aun no se implementar los Módulos con Android Library o Pruebas unitarias por lo que no pude hacerlo 😢.
+ **NOTA** lamentablemente aún no sé implementar los Módulos con Android Library o Pruebas unitarias, por lo que no pude hacerlo 😢.
