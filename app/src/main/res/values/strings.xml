@@ -1,5 +1,35 @@
 <resources>
     <string name="app_name">MovieApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="playing_now">Lo más nuevo</string>
+    <string name="most_popular">Más populares</string>
+    <string name="sort_results_by">Ordenar resultados por</string>
+    <string name="plot_summary">Resumen de la trama</string>
+    <string name="video_type">Tipo de video</string>
+    <string name="fake_date">Fecha de lanzamiendo: 12 novienmbre 2022</string>
+    <string name="release_date">Fecha de lanzamiento: %1$s</string>
+    <string name="lorem_long">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</string>
+    <string name="genres">Géneros</string>
+    <string name="lorem_medium">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
+    <string name="action">Acción</string>
+    <string name="adventure">Aventura</string>
+    <string name="animation">Animación</string>
+    <string name="comedy">Comedia</string>
+    <string name="crime">Crimen</string>
+    <string name="documentary">Documental</string>
+    <string name="drama">Drama</string>
+    <string name="family">Familia</string>
+    <string name="fantasy">Fantasía</string>
+    <string name="history">Historia</string>
+    <string name="horror">Terror</string>
+    <string name="music">Música</string>
+    <string name="mystery">Misterio</string>
+    <string name="romance">Romance</string>
+    <string name="science_fiction">Ciencia Ficción</string>
+    <string name="tv_movie">Película de TV</string>
+    <string name="thriller">Thriller</string>
+    <string name="war">Guerra</string>
+    <string name="western">Western</string>
+    <string name="fake_vote_average">7.5 / 10</string>
+    <string name="vote_average"> %1$s / 10</string>
 </resources>

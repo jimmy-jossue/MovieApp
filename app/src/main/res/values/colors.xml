@@ -6,8 +6,9 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
 
-    <color name="primary">#3B45A9</color>
-    <color name="primary_variant">#2E368E</color>
+
+    <color name="primary">#2B359D</color>
+    <color name="primary_variant">#1B2489</color>
 
     <color name="secondary">#FFC73B</color>
     <color name="secondary_variant">#D19C16</color>
@@ -15,12 +16,29 @@
     <color name="light_on_primary">#0C0F13</color>
     <color name="dark_on_primary">#E1E6EC</color>
 
-    <color name="light_on_secondary">#A60C0F13</color>
-    <color name="dark_on_secondary">#E1E6EC</color>
+    <color name="light_on_secondary">#B30C0F13</color>
+    <color name="dark_on_secondary">#B3E1E6EC</color>
+
+    <color name="light_text_body">#8C0C0F13</color>
+    <color name="dark_text_body">#8CE1E6EC</color>
 
     <color name="dark_background">#0F1011</color>
-    <color name="light_background">#A6FDFEFE</color>
+    <color name="light_background">#FDFEFE</color>
 
+    <color name="light_on_background">#99FDFEFE</color>
+    <color name="dark_on_background">#990F1011</color>
+
+    <color name="dark_surface">#03FFFFFF</color>
+    <color name="light_surface">#05000000</color>
+
+    <color name="dark_on_surface">#1AFFFFFF</color>
+    <color name="light_on_surface">#1A000000</color>
+
+    <color name="vote_average_background">#E6C800</color>
+
+    <color name="black_15">#26000000</color>
+    <color name="black_60">#99000000</color>
+    <color name="black_80">#CC000000</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

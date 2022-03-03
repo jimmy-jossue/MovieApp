@@ -1,18 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_on_primary"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical"
+    app:divider="@drawable/divider_medium"
+    app:showDividers="middle"
     tools:context=".ui.movielist.MovieListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/text"
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/text_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:textColor="@color/white"
-        android:padding="@dimen/_22sdp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:text="@string/app_name" />
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/text_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:text="@string/sort_results_by" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_medium"
+        android:divider="@drawable/divider_medium"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/spacing_small"
+        android:showDividers="middle">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rb_most_popular"
+            style="@style/radio"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_28sdp"
+            android:checked="true"
+            android:text="@string/most_popular"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/rb_playing_now"
+            style="@style/radio"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_28sdp"
+            android:checked="false"
+            android:text="@string/playing_now"
+            tools:ignore="TouchTargetSizeCheck" />
+    </RadioGroup>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movie_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <include
+            android:id="@+id/loading"
+            layout="@layout/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

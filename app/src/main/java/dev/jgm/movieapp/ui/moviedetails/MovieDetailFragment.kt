@@ -1,15 +1,71 @@
 package dev.jgm.movieapp.ui.moviedetails
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import dev.jgm.movieapp.R
+import dev.jgm.movieapp.databinding.FragmentMovieDetailBinding
+import dev.jgm.movieapp.domain.model.Movie
+import dev.jgm.movieapp.utils.extension.loadImage
+import java.util.*
 
+@AndroidEntryPoint
 class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
+
+    private lateinit var binding: FragmentMovieDetailBinding
+    private val args: MovieDetailFragmentArgs by navArgs()
+    private val viewModel: MovieDetailViewModel by viewModels()
+    private val locale = Locale.getDefault()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentMovieDetailBinding.bind(view)
+        setUpToolbar()
+        args.movie?.let { movie ->
+            setUpMovieDetail(movie)
+            viewModel.loadMovies(movie.id, locale.language)
+        }
+        initObservers()
+    }
+
+    private fun setUpMovieDetail(movie: Movie) {
+        binding.collapsingToolbar.title = movie.title
+        binding.title.text = movie.title
+        binding.backdrop.loadImage(movie.getImageUrl(movie.backdropPath))
+        binding.voteAverageBar.progress = movie.voteAverage.toInt()
+        binding.overview.text = movie.overview
+        binding.releaseDate.text = getString(R.string.release_date, movie.getDate(locale))
+        binding.voteAverage.text = getString(R.string.vote_average, movie.voteAverage.toString())
+        binding.genres.text = movie.getGenres(binding.root.context)
+    }
+
+    private fun setUpToolbar() {
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> findNavController().popBackStack()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun initObservers() {
+        viewModel.videos.observe(viewLifecycleOwner) { videos ->
+            if (!videos.isNullOrEmpty()) {
+                val adapter = MovieVideoAdapter(lifecycle, videos)
+                val layoutManager =
+                    LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
+                binding.rvVideos.layoutManager = layoutManager
+                binding.rvVideos.adapter = adapter
+            }
+        }
     }
 }

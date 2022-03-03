@@ -7,4 +7,11 @@
     <dimen name="corner_radius_small">@dimen/_3sdp</dimen>
     <dimen name="corner_radius_medium">@dimen/_8sdp</dimen>
     <dimen name="corner_radius_long">@dimen/_10sdp</dimen>
+
+    <dimen name="loading_size">@dimen/_50sdp</dimen>
+
+    <dimen name="text_header">@dimen/_23ssp</dimen>
+    <dimen name="text_title">@dimen/_14ssp</dimen>
+    <dimen name="text_body">@dimen/_12sdp</dimen>
+
 </resources>
