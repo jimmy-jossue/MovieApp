@@ -48,6 +48,8 @@ class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
         viewModel.movies.observe(viewLifecycleOwner) { movies ->
             if (movies.isNotEmpty()) {
                 adapter.list = movies
+                binding.rbPlayingNow.isEnabled = true
+                binding.rbMostPopular.isEnabled = true
                 binding.rvMovieList.visibility = View.VISIBLE
                 binding.loading.root.visibility = View.GONE
                 binding.message.root.visibility = View.GONE
@@ -56,7 +58,9 @@ class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
             }
         }
         viewModel.error.observe(viewLifecycleOwner) { isError ->
-            if (isError) setUpMessage(isError)
+            if (isError) {
+                setUpMessage(isError)
+            }
         }
     }
 
@@ -82,12 +86,16 @@ class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
 
         }
 
+        binding.rbPlayingNow.isEnabled = true
+        binding.rbMostPopular.isEnabled = true
         binding.loading.root.visibility = View.GONE
         binding.rvMovieList.visibility = View.GONE
         binding.message.root.visibility = View.VISIBLE
     }
 
     private fun showLoading() {
+        binding.rbPlayingNow.isEnabled = false
+        binding.rbMostPopular.isEnabled = false
         binding.rvMovieList.visibility = View.GONE
         binding.message.root.visibility = View.GONE
         binding.loading.root.visibility = View.VISIBLE

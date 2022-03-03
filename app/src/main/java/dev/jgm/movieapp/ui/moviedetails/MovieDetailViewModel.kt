@@ -21,8 +21,8 @@ class MovieDetailViewModel @Inject constructor(
 
     fun loadMovies(movieId: Int, language: String) {
         viewModelScope.launch {
-            isLoading.value = true
             error.value = false
+            isLoading.value = true
 
             val response = getMovieVideos(movieId, language)
             when (response) {

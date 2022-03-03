@@ -18,7 +18,7 @@ class MovieListViewModel @Inject constructor(
 ) : ViewModel() {
 
     val movies = MutableLiveData<List<Movie>>(emptyList())
-    val isLoading = MutableLiveData<Boolean>()
+    val isLoading = MutableLiveData(true)
     val error = MutableLiveData(false)
 
     init {
@@ -27,8 +27,8 @@ class MovieListViewModel @Inject constructor(
 
     fun loadMovies(movieType: MovieType, language: String, page: Int) {
         viewModelScope.launch {
-            isLoading.value = true
             error.value = false
+            isLoading.value = true
 
             val response = getAllMovies(movieType, language, page)
             when (response) {
