@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/black_15">
+    android:visibility="gone"
+    android:background="@drawable/backdrop_background">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:layout_width="@dimen/loading_size"

@@ -115,5 +115,6 @@ fun Movie.toMovieEntity(): MovieEntity {
         video = video,
         voteAverage = voteAverage,
         voteCount = voteCount,
+        type = type?.type ?: -1
     )
 }

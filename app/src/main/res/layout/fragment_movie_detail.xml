@@ -65,10 +65,10 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/vote_average_container"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_37sdp"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
                     android:gravity="center"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
@@ -88,6 +88,16 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/vote_average"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/text_body"
+                        android:text="@string/fake_vote_average"
+                        android:layout_marginHorizontal="@dimen/spacing_medium"
+                        android:layout_marginTop="-12dp"
+                        android:textAlignment="center" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -117,24 +127,6 @@
             app:divider="@drawable/divider_medium"
             app:showDividers="middle">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/vote_average"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/text_body"
-                android:text="@string/fake_vote_average"
-                android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:textAlignment="center"
-                android:layout_marginTop="@dimen/spacing_small" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/release_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/text_body"
-                android:text="@string/fake_date"
-                android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:layout_marginTop="@dimen/spacing_small" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -168,12 +160,56 @@
                 android:text="@string/lorem_long"
                 android:layout_marginHorizontal="@dimen/spacing_medium" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_videos"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/release_date"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/text_body"
+                android:text="@string/fake_date"
                 android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:layout_marginTop="@dimen/spacing_medium" />
+                android:layout_marginTop="@dimen/spacing_small" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:orientation="vertical"
+                app:divider="@drawable/divider_medium"
+                app:showDividers="middle">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/text_title"
+                    android:text="@string/videos"
+                    android:layout_marginTop="@dimen/spacing_medium" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_videos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/message_layout"
+                    android:layout_marginHorizontal="@dimen/spacing_long"
+                    android:layout_weight="1" />
+
+                <include
+                    android:id="@+id/loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/loading_layout"
+                    android:layout_weight="1" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
 

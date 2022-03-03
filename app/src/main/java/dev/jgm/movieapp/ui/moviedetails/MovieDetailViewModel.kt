@@ -1,6 +1,5 @@
 package dev.jgm.movieapp.ui.moviedetails
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,26 +17,23 @@ class MovieDetailViewModel @Inject constructor(
 
     val videos = MutableLiveData<List<Video>>(emptyList())
     val isLoading = MutableLiveData<Boolean>()
+    val error = MutableLiveData(false)
 
     fun loadMovies(movieId: Int, language: String) {
         viewModelScope.launch {
             isLoading.value = true
-            Log.wtf("VM", "Loading: TRUE")
+            error.value = false
+
             val response = getMovieVideos(movieId, language)
             when (response) {
-                is Response.Failure -> {
-                    Log.wtf("VM_FAILURE", "Loading: FALSE")
-                    Log.wtf("VM_FAILURE", ". \n error: ${response.exception.message}")
-                    isLoading.value = false
-                }
                 is Response.Loading -> isLoading.value = true
                 is Response.Success -> {
-                    Log.wtf(
-                        "VM_SUCCESS",
-                        ".\n name video: ${if (!response.data.isNullOrEmpty()) response.data[0].key else ""}"
-                    )
-                    Log.wtf("VM", "Loading: FALSE")
                     videos.value = response.data!!
+                    isLoading.value = false
+                }
+                is Response.Failure -> {
+                    error.value = true
+                    isLoading.value = false
                 }
             }
         }

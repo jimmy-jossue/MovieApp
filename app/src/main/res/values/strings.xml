@@ -10,6 +10,7 @@
     <string name="release_date">Fecha de lanzamiento: %1$s</string>
     <string name="lorem_long">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</string>
     <string name="genres">Géneros</string>
+    <string name="lorem_small">Lorem Ipsum is simply</string>
     <string name="lorem_medium">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</string>
     <string name="action">Acción</string>
     <string name="adventure">Aventura</string>
@@ -32,4 +33,10 @@
     <string name="western">Western</string>
     <string name="fake_vote_average">7.5 / 10</string>
     <string name="vote_average"> %1$s / 10</string>
+    <string name="no_movie_found">¡Oh, vaya! No se encontraron las peliculas</string>
+    <string name="make_sure_have_Internet_connection">Si es la primera vez que utiliza la aplicación, asegúrate de tener conexión a Internet</string>
+    <string name="no_videos_found">¡Oh, vaya! No se encontraron videos de esta pelicula</string>
+    <string name="try_again">Volver a intentar</string>
+    <string name="videos">Videos</string>
+    <string name="no_internet_connection">Parece que no cuentas con conexión a internet.</string>
 </resources>

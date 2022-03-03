@@ -10,17 +10,17 @@ class VideoRepository @Inject constructor(
     private val api: MovieApiService
 ) {
     suspend fun getMovieVideo(movieId: Int, language: String): Response<List<Video>> {
-        //return try {
-        val call = api.getMovieVideos(movieId, language)
-        val response: MovieVideosResponse? = call.body()
-        return if (response != null && !response.videos.isNullOrEmpty()) {
-            val videos = response.videos.map { it.toVideo() }
-            Response.Success(videos)
-        } else {
-            Response.Success(emptyList())
+        return try {
+            val call = api.getMovieVideos(movieId, language)
+            val response: MovieVideosResponse? = call.body()
+            if (response != null && !response.videos.isNullOrEmpty()) {
+                val videos = response.videos.map { it.toVideo() }
+                Response.Success(videos)
+            } else {
+                Response.Success(emptyList())
+            }
+        } catch (ex: Exception) {
+            Response.Failure(ex)
         }
-        //} catch (ex: Exception) {
-        //    Response.Failure(ex)
-        //}
     }
 }

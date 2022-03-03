@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.jgm.movieapp.R
 import dev.jgm.movieapp.databinding.FragmentMovieDetailBinding
 import dev.jgm.movieapp.domain.model.Movie
+import dev.jgm.movieapp.domain.model.Video
 import dev.jgm.movieapp.utils.extension.loadImage
 import java.util.*
 
@@ -47,6 +48,7 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     }
 
     private fun setUpToolbar() {
+        setHasOptionsMenu(true)
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
     }
 
@@ -58,14 +60,49 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     }
 
     private fun initObservers() {
-        viewModel.videos.observe(viewLifecycleOwner) { videos ->
-            if (!videos.isNullOrEmpty()) {
-                val adapter = MovieVideoAdapter(lifecycle, videos)
-                val layoutManager =
-                    LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
-                binding.rvVideos.layoutManager = layoutManager
-                binding.rvVideos.adapter = adapter
-            }
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading()
         }
+        viewModel.videos.observe(viewLifecycleOwner) { videos ->
+            if (!videos.isNullOrEmpty()) setUpVideos(videos) else setUpMessage(false)
+        }
+        viewModel.error.observe(viewLifecycleOwner) { isError ->
+            if (isError) setUpMessage(isError)
+        }
+    }
+
+    private fun setUpVideos(videos: List<Video>) {
+        val adapter = MovieVideoAdapter(lifecycle, videos)
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.rvVideos.layoutManager = layoutManager
+        binding.rvVideos.adapter = adapter
+        binding.message.root.visibility = View.GONE
+        binding.loading.root.visibility = View.GONE
+        binding.rvVideos.visibility = View.VISIBLE
+    }
+
+    private fun setUpMessage(isError: Boolean) {
+        binding.message.title.text = getString(R.string.no_videos_found)
+        binding.message.image.visibility = View.GONE
+        binding.message.button.text = getString(R.string.try_again)
+        binding.message.button.setOnClickListener {
+            viewModel.loadMovies(args.movie!!.id, "en-US")
+        }
+        if (isError) {
+            binding.message.body.text = getString(R.string.no_internet_connection)
+            binding.message.body.visibility = View.VISIBLE
+        } else {
+            binding.message.body.visibility = View.GONE
+        }
+
+        binding.loading.root.visibility = View.GONE
+        binding.rvVideos.visibility = View.GONE
+        binding.message.root.visibility = View.VISIBLE
+    }
+
+    private fun showLoading() {
+        binding.rvVideos.visibility = View.GONE
+        binding.message.root.visibility = View.GONE
+        binding.loading.root.visibility = View.VISIBLE
     }
 }

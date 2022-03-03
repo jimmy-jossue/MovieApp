@@ -87,9 +87,6 @@ dependencies {
     // Youtube video player
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
 
-    // Round corner ImageView
-    implementation "com.makeramen:roundedimageview:$rounded_imageView_version"
-
     // dimens scalable
     implementation "com.intuit.ssp:ssp-android:$dimen_scalable_version"
     implementation "com.intuit.sdp:sdp-android:$dimen_scalable_version"

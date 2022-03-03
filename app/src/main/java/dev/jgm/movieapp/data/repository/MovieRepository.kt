@@ -41,7 +41,7 @@ class MovieRepository @Inject constructor(
 
     private suspend fun insertMovies(movies: List<Movie>) {
         try {
-            val moviesEntities = movies.map { it.toMovieEntity().copy(type = it.type?.type ?: -1) }
+            val moviesEntities = movies.map { it.toMovieEntity() }
             dao.insertAll(moviesEntities)
         } catch (ex: Exception) {
             throw ex

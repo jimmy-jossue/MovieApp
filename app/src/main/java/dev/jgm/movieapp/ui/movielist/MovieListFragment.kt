@@ -21,7 +21,6 @@ class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
     private lateinit var adapter: MovieListAdapter
     private val language = Locale.getDefault().language
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMovieListBinding.bind(view)
@@ -43,18 +42,21 @@ class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
     }
 
     private fun initObservers() {
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) showLoading()
+        }
         viewModel.movies.observe(viewLifecycleOwner) { movies ->
             if (movies.isNotEmpty()) {
                 adapter.list = movies
+                binding.rvMovieList.visibility = View.VISIBLE
                 binding.loading.root.visibility = View.GONE
+                binding.message.root.visibility = View.GONE
             } else {
-
+                setUpMessage(true)
             }
         }
-        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                binding.loading.root.visibility = View.VISIBLE
-            }
+        viewModel.error.observe(viewLifecycleOwner) { isError ->
+            if (isError) setUpMessage(isError)
         }
     }
 
@@ -65,5 +67,29 @@ class MovieListFragment :  Fragment(R.layout.fragment_movie_list) {
     private fun openDetailsMovie(movie: Movie) {
         val direction = MovieListFragmentDirections.goToDetails(movie)
         findNavController().navigate(direction)
+    }
+
+    private fun setUpMessage(isError: Boolean) {
+        binding.message.title.text = getString(R.string.no_movie_found)
+        binding.message.image.setImageResource(R.drawable.ic_no_movie_found)
+        binding.message.button.text = getString(R.string.try_again)
+        binding.message.button.visibility = View.GONE
+        if (isError) {
+            binding.message.body.text = getString(R.string.make_sure_have_Internet_connection)
+            binding.message.body.visibility = View.VISIBLE
+        } else {
+            binding.message.body.visibility = View.GONE
+
+        }
+
+        binding.loading.root.visibility = View.GONE
+        binding.rvMovieList.visibility = View.GONE
+        binding.message.root.visibility = View.VISIBLE
+    }
+
+    private fun showLoading() {
+        binding.rvMovieList.visibility = View.GONE
+        binding.message.root.visibility = View.GONE
+        binding.loading.root.visibility = View.VISIBLE
     }
 }
