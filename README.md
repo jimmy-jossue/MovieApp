@@ -22,7 +22,7 @@ Al momento de consultar los  datos desde la api de [TheMovieDB](https://develope
 <br/>
 
 ## Construido con
-- [MVVM pattern](#construido-con): es el lenguaje de programación recomendado por la comunidad de **Android developers** para desarrollar aplicaciones moviles para la pratadorma Android.
+- [MVVM pattern](https://developer.android.com/topic/architecture?hl=es-419#fetching_data): Es la arquitectura recomendada por la comunidad de Andrid en su [guia de arquitectura](https://developer.android.com/topic/architecture?hl=es-419#fetching_data), consiste suscribir la vista a estados en un viewmodel a travez de observadores.
 - [Kotlin](https://kotlinlang.org/docs/android-overview.html): es el lenguaje de programación recomendado por la comunidad de **Android developers** para desarrollar aplicaciones moviles para la pratadorma Android.
 - [Retrofit](https://square.github.io/retrofit/): es una librería que simplifica las tareas de llamadas de red a una API.
 - [Room](https://developer.android.com/topic/libraries/architecture/room) - librería que simplifica la tarea de trabajar con bases de datos en Android.
